@@ -13,7 +13,7 @@
   --bg:#F3F5F2; --card:#FFFFFF; --ink:#101410; --ink2:#4A534B; --line:#DCE2DB; --chip:#E6EDE8;
   --brand:#0E7A56; --brand-d:#0A5C41; --accent:#F2B705; --alert:#D63A1F; --nav:#0E7A56; --navtxt:#FFFFFF;
   --shadow:0 1px 2px rgba(16,20,16,.08), 0 6px 18px rgba(16,20,16,.06);
-  --c-Music:#0E7A56; --c-Gist:#D63A1F; --c-Movies:#7A4FD1; --c-Trending:#B58900; --c-Sport:#1F6FB2;
+  --c-Music:#0E7A56; --c-Gist:#D63A1F; --c-Movies:#7A4FD1; --c-Trending:#B58900; --c-Sport:#1F6FB2; --c-Celebrities:#C2307A;
 }
 :root[data-theme="dark"]{
   --bg:#0B0F0C; --card:#131914; --ink:#F2F4EE; --ink2:#A5ADA2; --line:#242C25; --chip:#1B231C;
@@ -123,7 +123,7 @@ svg{width:18px;height:18px;flex:none;fill:none;stroke:currentColor;stroke-width:
 .slider-btns .icon-btn:hover{background:var(--accent);color:#141912;border-color:var(--accent)}
 
 .chip{display:inline-block;font-size:11px;font-weight:800;padding:4px 10px;border-radius:4px;color:#fff;background:var(--cc,var(--brand))}
-.c-Music{--cc:var(--c-Music)}.c-Gist{--cc:var(--c-Gist)}.c-Movies{--cc:var(--c-Movies)}.c-Trending{--cc:var(--c-Trending)}.c-Sport{--cc:var(--c-Sport)}
+.c-Music{--cc:var(--c-Music)}.c-Gist{--cc:var(--c-Gist)}.c-Movies{--cc:var(--c-Movies)}.c-Trending{--cc:var(--c-Trending)}.c-Sport{--cc:var(--c-Sport)}.c-Celebrities{--cc:var(--c-Celebrities)}
 
 .top-side{display:flex;flex-direction:column;gap:14px}
 .side-title,.sec-title{font-family:'Anton',sans-serif;font-weight:400;font-size:22px;display:flex;align-items:center;gap:10px}
@@ -277,6 +277,51 @@ body.lock{overflow:hidden}
 .toast.show{opacity:1;transform:translate(-50%,0)}
 .to-top{position:fixed;right:22px;bottom:22px;z-index:90;opacity:0;visibility:hidden;transform:translateY(10px);transition:all .25s;background:var(--accent);color:#141912;border-color:var(--accent)}
 .to-top.show{opacity:1;visibility:visible;transform:none}
+
+/* celebrity spotlight */
+.thumb.c-Celebrities img,.rd-hero.c-Celebrities img{object-position:center 20%}
+.spotlight{margin:0 0 34px}
+.sp-track{display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;padding:4px 2px 14px;scrollbar-width:thin}
+.cel{flex:none;width:210px;scroll-snap-align:start;background:var(--card);border:1px solid var(--line);border-radius:12px;overflow:hidden;transition:transform .2s,box-shadow .2s,border-color .2s}
+.cel:hover{transform:translateY(-4px);box-shadow:var(--shadow);border-color:var(--c-Celebrities)}
+.cel-photo{position:relative;aspect-ratio:1/1;background:var(--c-Celebrities);display:flex;align-items:center;justify-content:center;cursor:pointer;overflow:hidden}
+.cel-photo>span{font-family:'Anton',sans-serif;font-size:56px;color:rgba(255,255,255,.35)}
+.cel-photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 20%;transition:transform .5s}
+.cel:hover .cel-photo img{transform:scale(1.06)}
+.cel-count{position:absolute;left:10px;bottom:10px;z-index:2;background:rgba(11,15,12,.88);color:#fff;font-size:11px;font-weight:800;padding:4px 10px;border-radius:99px}
+.cel-body{padding:12px 14px 14px}
+.cel h3{font-size:16px;font-weight:800}
+.cel small{display:block;color:var(--ink2);font-size:12px;margin:2px 0 10px}
+.cel-actions{display:flex;gap:8px}
+.btn-sm{padding:7px 12px;font-size:12.5px;border-radius:6px}
+.btn.follow.on{background:var(--c-Celebrities);border-color:var(--c-Celebrities);color:#fff}
+.cel-chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px}
+.cel-chips:empty{display:none}
+.fchip.cel-on{background:var(--c-Celebrities);border-color:var(--c-Celebrities);color:#fff}
+.pf{background:var(--card);width:100%;max-width:780px;max-height:100vh;overflow-y:auto;transform:translateY(24px);transition:transform .3s cubic-bezier(.2,.8,.2,1);position:relative}
+@media(min-width:720px){.pf{max-height:calc(100vh - 72px);border-radius:12px}}
+.overlay.open .pf{transform:none}
+.pf-head{display:flex;flex-direction:column;gap:18px;padding:26px;border-bottom:1px solid var(--line)}
+@media(min-width:620px){.pf-head{flex-direction:row}}
+.pf-photo{position:relative;width:150px;height:150px;flex:none;border-radius:12px;overflow:hidden;background:var(--c-Celebrities);display:flex;align-items:center;justify-content:center}
+.pf-photo>span{font-family:'Anton',sans-serif;font-size:60px;color:rgba(255,255,255,.35)}
+.pf-photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 20%}
+.pf h2{font-family:'Anton',sans-serif;font-weight:400;font-size:38px;line-height:1.05;padding-right:44px}
+.pf-real{color:var(--ink2);font-size:13px;margin:4px 0 10px}
+.pf-bio{font-size:15.5px;color:var(--ink2);margin-bottom:16px}
+.pf-btns{display:flex;flex-wrap:wrap;gap:10px}
+.pf-sec{padding:22px 26px 28px}
+.pf-sec h4{font-size:13px;color:var(--ink2);margin-bottom:12px}
+.pf-facts{display:flex;flex-direction:column;gap:8px;margin-bottom:24px}
+.pf-facts li{display:flex;gap:10px;font-size:14.5px}
+.pf-facts li::before{content:"";width:8px;height:8px;margin-top:8px;border-radius:50%;background:var(--accent);flex:none}
+.pf-close{position:absolute;top:14px;right:14px;z-index:6}
+.pf .mini{margin-bottom:10px}
+.live-pill{display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:800;background:var(--chip);color:var(--ink2);padding:5px 12px;border-radius:99px}
+.live-pill .live-dot{background:var(--alert)}
+.icon-btn.spin svg{animation:spin .8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.new-badge{position:absolute;top:12px;left:12px;z-index:2;background:var(--alert);color:#fff;font-size:11px;font-weight:800;padding:4px 9px;border-radius:4px}
 </style>
 </head>
 <body>
@@ -348,16 +393,29 @@ body.lock{overflow:hidden}
     </div>
   </section>
 
+  <section class="spotlight" id="spotlight" aria-label="Celebrity spotlight">
+    <div class="feed-head">
+      <h2 class="sec-title">Celebrity spotlight</h2>
+      <div class="view-toggle">
+        <button class="icon-btn" id="spPrev" type="button" aria-label="Scroll left"><svg viewBox="0 0 24 24"><path d="M15 6l-6 6 6 6"/></svg></button>
+        <button class="icon-btn" id="spNext" type="button" aria-label="Scroll right"><svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></button>
+      </div>
+    </div>
+    <div class="sp-track" id="spTrack"></div>
+  </section>
+
   <div class="layout">
     <section id="feed" aria-label="Latest stories">
       <div class="feed-head">
-        <h2 class="sec-title">Latest stories</h2>
+        <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap"><h2 class="sec-title">Latest stories</h2><span class="live-pill" id="livePill" hidden></span></div>
         <div class="view-toggle">
+          <button class="icon-btn" id="refreshBtn" type="button" aria-label="Refresh live stories"><svg viewBox="0 0 24 24"><path d="M20 11a8 8 0 1 0-2.3 5.7M20 4v7h-7"/></svg></button>
           <button class="icon-btn on" id="viewGrid" type="button" aria-label="Grid view"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg></button>
           <button class="icon-btn" id="viewList" type="button" aria-label="List view"><svg viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button>
         </div>
       </div>
       <div class="chips" id="chips"></div>
+      <div class="cel-chips" id="celChips"></div>
       <div class="status" id="status"></div>
       <div class="cards grid" id="cards"></div>
       <div class="more-wrap"><button class="btn btn-brand" id="moreBtn" type="button">Load more stories</button></div>
@@ -427,7 +485,7 @@ body.lock{overflow:hidden}
         <li><a href="#advertise">Advertise</a></li><li><a href="#newsletterBox">Newsletter</a></li><li><a href="#top" data-go="All">All stories</a></li></ul></div>
       <div><h5>Follow</h5><ul><li><a href="#">Instagram</a></li><li><a href="#">X</a></li><li><a href="#">TikTok</a></li></ul></div>
     </div>
-    <p class="foot-note">Case-study demo build. Story summaries are written from the reports linked in each article, which remain the original source. Photos load from Wikipedia and Wikimedia Commons under their own licences; where no photo is found a colour tile is shown instead. © 2026 9jatunes demo.</p>
+    <p class="foot-note">Case-study demo build. Stories marked Live are collected automatically from publishers’ public RSS feeds: their headlines, short summaries and thumbnails belong to the original publishers, and each links back to its source. Story summaries are written from the reports linked in each article, which remain the original source. Photos load from Wikipedia and Wikimedia Commons under their own licences; where no photo is found a colour tile is shown instead. © 2026 9jatunes demo.</p>
   </div>
 </footer>
 
@@ -467,6 +525,32 @@ body.lock{overflow:hidden}
   </article>
 </div>
 
+<div class="overlay" id="pfOverlay" aria-hidden="true">
+  <article class="pf" id="pf" role="dialog" aria-modal="true" aria-labelledby="pfName">
+    <button class="icon-btn pf-close" id="pfClose" type="button" aria-label="Close profile"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+    <div class="pf-head">
+      <div class="pf-photo" id="pfPhoto"></div>
+      <div>
+        <span class="chip c-Celebrities">Celebrity</span>
+        <h2 id="pfName"></h2>
+        <div class="pf-real" id="pfReal"></div>
+        <p class="pf-bio" id="pfBio"></p>
+        <div class="pf-btns">
+          <button class="btn btn-ghost follow" id="pfFollow" type="button">Follow</button>
+          <button class="btn btn-brand" id="pfAll" type="button">All stories</button>
+          <a class="btn btn-ghost" id="pfWiki" href="#" target="_blank" rel="noopener noreferrer">Wikipedia</a>
+        </div>
+      </div>
+    </div>
+    <div class="pf-sec">
+      <h4>Career snapshot</h4>
+      <ul class="pf-facts" id="pfFacts"></ul>
+      <h4 id="pfStoriesTitle">Latest stories</h4>
+      <div id="pfStories"></div>
+    </div>
+  </article>
+</div>
+
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 <button class="icon-btn to-top" id="toTop" type="button" aria-label="Back to top"><svg viewBox="0 0 24 24"><path d="M12 19V5M5 12l7-7 7 7"/></svg></button>
 <script>
@@ -474,7 +558,7 @@ body.lock{overflow:hidden}
 "use strict";
 
 /* ---------- Story data (summarised from the linked reports) ---------- */
-var CATS = ["Music","Gist","Movies","Trending","Sport"];
+var CATS = ["Music","Celebrities","Gist","Movies","Trending","Sport"];
 var S = [
  {id:"fela-rock-hall",cat:"Trending",trending:1,ts:"2026-11-15",when:"15 Nov 2026",read:"2 min read",
   title:"Fela Kuti to be honoured by the Rock and Roll Hall of Fame in Los Angeles",
@@ -507,7 +591,7 @@ var S = [
   src:{n:"Leadership",u:"https://leadership.ng/2baba-sets-november-27-release-for-first-album-in-six-years/"},
   body:["Nigerian music star 2Baba will release his first studio album in six years on 27 November. The project is titled Oldest Young Man, Leadership reports.",
         "It marks his first full-length studio release since his last album six years ago. Tracklist and feature details will be available through official channels as the date approaches."]},
- {id:"ayra-coachella",cat:"Music",trending:1,ts:"2026-11-11",when:"11 Nov 2026",read:"2 min read",
+ {id:"ayra-coachella",cat:"Music",who:["Ayra Starr"],trending:1,ts:"2026-11-11",when:"11 Nov 2026",read:"2 min read",
   title:"Ayra Starr joins the Coachella 2027 lineup",
   dek:"The Nigerian star is named among the artistes for next year’s festival.",
   img:{t:"Ayra Starr",q:"Ayra Starr"},
@@ -521,7 +605,7 @@ var S = [
   src:{n:"Leadership",u:"https://leadership.ng/?p=751058"},
   body:["As 2026 approaches its final stretch, several Nigerian and international artistes have enjoyed impressive runs on Nigeria’s music charts, with songs dominating streaming platforms and radio airplay.",
         "Leadership’s list draws on TurnTable Charts’ Official Nigeria Top 100, which combines streaming and radio performance, and includes the songs that reached No. 1 during the year."]},
- {id:"headies-2026",cat:"Music",ts:"2026-08-25",when:"25 Aug 2026",read:"2 min read",
+ {id:"headies-2026",cat:"Music",who:["Burna Boy","Wizkid","Davido","Tems","Ayra Starr"],ts:"2026-08-25",when:"25 Aug 2026",read:"2 min read",
   title:"Headies 2026: Burna Boy, Wizkid, Davido and Tems among the nominees",
   dek:"Omah Lay, Ayra Starr and Cubana Chief Priest are also on the list.",
   img:{t:"Wizkid",q:"Wizkid"},
@@ -549,7 +633,7 @@ var S = [
   src:{n:"Pulse Nigeria",u:"https://www.pulse.ng/story/cool-fm-announces-coma-the-cool-fm-music-awards-recognising-the-sounds-and-creatives-shaping-nigerian-music-2026103018324740730"},
   body:["Cool FM has announced COMA, the Cool FM Music Awards, an awards platform recognising the sounds and creatives shaping Nigerian music, Pulse Nigeria reports.",
         "Nomination and ceremony details are available from the station’s official channels."]},
- {id:"burna-paris",cat:"Gist",ts:"2026-09-17",when:"17 Sep 2026",read:"2 min read",
+ {id:"burna-paris",cat:"Gist",who:["Burna Boy"],ts:"2026-09-17",when:"17 Sep 2026",read:"2 min read",
   title:"Burna Boy to headline halftime at Steelers game in Paris",
   dek:"The star returns to the Stade de France for another landmark moment.",
   img:{t:"Stade de France",q:"Stade de France"},
@@ -602,12 +686,65 @@ var S = [
   body:["Afrik-Foot’s 13 November Super Eagles roundup leads with striker Paul Onuachu’s exit from Trabzonspor and head coach Éric Chelle’s comments on the so-called Okoye snub.",
         "Nigeria are chasing qualification for the 2027 Africa Cup of Nations in a group that also includes Madagascar, Tanzania and Guinea-Bissau. The full roundup is at the link below."]}
 ];
+
+S.push(
+ {id:"grammy-2027",cat:"Celebrities",trending:1,who:["Tems","Asake","Wizkid","Burna Boy","Davido","Ayra Starr"],ts:"2026-11-13",when:"Nov 2026",read:"3 min read",
+  title:"Tems leads Nigeria’s 2027 Grammy nominees as Asake, Burna Boy, Wizkid, Davido and Ayra Starr make the list",
+  dek:"Nominations span African music, global music and R&B categories.",
+  img:{t:"Tems",q:"Tems"},nofb:1,
+  src:{n:"Vanguard",u:"https://www.vanguardngr.com/2026/11/asake-wizkid-burna-boy-davido-nominated-for-2027-grammys/"},
+  body:["Tems leads the Nigerian nominees for the 2027 Grammy Awards with four nominations, while Asake, Wizkid, Burna Boy, Davido and Ayra Starr also earned nods across African music, global music and R&B categories, Vanguard reports.",
+        "BellaNaija notes that Asake picked up two nominations in the Best African Music Performance category, where Wizkid, Tems and Ayra Starr are also nominated.",
+        "Nigerian artistes have been regular names on the Grammy list for years. Tems won Best African Music Performance at the 67th Grammys for ‘Love Me Jeje’, and Burna Boy took Best Global Music Album in 2021."]},
+ {id:"asake-big-year",cat:"Celebrities",who:["Asake","Wizkid"],ts:"2026-11-12",when:"12 Nov 2026",read:"3 min read",
+  title:"Asake’s big year: a Wizkid EP, a homecoming documentary and two Grammy nods",
+  dek:"From REAL, Vol. 1 to M$NEY, the Mr Money star keeps his run going.",
+  img:{t:"Asake (singer)",q:"Asake Nigerian singer"},nofb:1,
+  src:{n:"BellaNaija",u:"https://www.bellanaija.com/2026/11/best-african-music-performance-grammy-nominations/"},
+  body:["Asake has had a busy 2026. In January he and Wizkid shared their collaborative four-song EP, REAL, Vol. 1. On 30 March he released a homecoming documentary alongside the single ‘Worship’, with visuals, according to New Wave Magazine.",
+        "His fourth studio album is titled M$NEY, and its tracklist includes DJ Snake and Kabza De Small, YNaija reported.",
+        "Now the Grammys have come calling: he earned two nominations in Best African Music Performance for the 2027 awards."]},
+ {id:"seyi-house",cat:"Celebrities",who:["Seyi Vibez"],ts:"2026-11-04",when:"4 Nov 2026",read:"2 min read",
+  title:"Seyi Vibez gifts his father a second house",
+  dek:"The star shared a video of the new property on Instagram.",
+  img:{t:"Seyi Vibez",q:"Seyi Vibez"},nofb:1,
+  src:{n:"Pulse Nigeria",u:"https://www.pulse.ng/story/afrobeats-star-seyi-vibez-gifts-his-father-a-second-multi-million-naira-house-2026110417504913560"},
+  body:["Seyi Vibez has gifted his father a second multi-million-naira house, Pulse Nigeria reports. He shared a clip of the new property on Instagram on 4 November 2026, standing in front of a large storey building with his father and associates.",
+        "It is the second house he has given his dad, after building him a first one in 2023.",
+        "Pulse notes it has been a year of big purchases for the singer, including a diamond chain bought to mark the release of his new album, SWAGUU."]},
+ {id:"seyi-swaguu",cat:"Celebrities",who:["Seyi Vibez","Burna Boy"],ts:"2026-10-01",when:"Oct 2026",read:"3 min read",
+  title:"Seyi Vibez’s SWAGUU arrives, executive-produced by Burna Boy",
+  dek:"A 14-track album with a single guest: Quavo on the title track.",
+  img:{t:"Seyi Vibez",q:"Seyi Vibez"},nofb:1,
+  src:{n:"NotJustOk",u:"https://notjustok.com/?p=523650"},
+  body:["Seyi Vibez has released his new studio album, SWAGUU, a 14-song project executive-produced by Burna Boy, according to NotJustOk.",
+        "It carries just one guest appearance, with American rapper Quavo joining Seyi Vibez on the title track.",
+        "A press release from producer Mally Mall says he produced five tracks on the album and describes SWAGUU as Spotify’s No. 1 global album debut."]},
+ {id:"burna-dai-dai",cat:"Celebrities",who:["Burna Boy"],ts:"2026-10-23",when:"23 Oct 2026",read:"2 min read",
+  title:"Burna Boy tops Africa’s Spotify streaming charts on the back of ‘Dai Dai’",
+  dek:"The Shakira collaboration for the 2026 FIFA World Cup is driving his numbers.",
+  img:{t:"Burna Boy",q:"Burna Boy"},nofb:1,
+  src:{n:"Leadership",u:"https://leadership.ng/burna-boy-tops-spotify-streaming-charts-in-africa/"},
+  body:["Burna Boy has topped Spotify’s streaming charts in Africa, Leadership reported on 23 October, with the rise driven by ‘Dai Dai’, his collaboration with Colombian singer Shakira for the 2026 FIFA World Cup.",
+        "Leadership separately reported a new Billboard milestone for the star following the Shakira collaboration.",
+        "He also executive-produced Seyi Vibez’s SWAGUU and is among the Nigerian nominees for the 2027 Grammys."]},
+ {id:"tiwa-foundation",cat:"Celebrities",who:["Tiwa Savage"],ts:"2026-02-26",when:"26 Feb 2026",read:"2 min read",
+  title:"Tiwa Savage launches a music foundation to build platforms back home",
+  dek:"The Afropop star turns her focus to a legacy beyond her own fame.",
+  img:{t:"Tiwa Savage",q:"Tiwa Savage"},nofb:1,
+  src:{n:"3Music",u:"https://www.3music.tv/section/news/article/tiwa-savage-launches-tiwa-savage-music-foundation-2026-02-26"},
+  body:["Tiwa Savage has launched the Tiwa Savage Music Foundation, 3Music reported in February 2026, turning her focus back home after years of building a global career.",
+        "The report frames the move as a legacy statement: building platforms that outlive personal fame.",
+        "It follows her 2025 album This One Is Personal, her first full-length project since Celia in 2020, and plans she announced that year to launch a music school."]}
+);
 S.forEach(function(s){s.time=new Date(s.ts).getTime();});
 var byId={};S.forEach(function(s){byId[s.id]=s;});
 
 var SLIDES=["fela-rock-hall","eagles-tanzania","agbara-nla"];
 var SIDE=["lookman-out","2baba-album","ayra-coachella"];
 var TICKER=[
+ ["grammy-2027","2027 Grammys: Tems leads Nigeria’s nominees"],
+ ["seyi-swaguu","Seyi Vibez drops SWAGUU, executive-produced by Burna Boy"],
  ["fela-rock-hall","Fela Kuti to be honoured by the Rock and Roll Hall of Fame"],
  ["eagles-tanzania","Super Eagles beat Tanzania 3-1 in Uyo"],
  ["2baba-album","2Baba’s Oldest Young Man arrives 27 November"],
@@ -629,6 +766,35 @@ var FORMATS=[
  {id:"newsletter",t:"Newsletter slot",d:"A featured placement in the Get the gist email."}
 ];
 
+
+var CELEBS=[
+ {id:"asake",name:"Asake",real:"Ahmed Ololade",tag:"Afrobeats · Street-pop",img:{t:"Asake (singer)",q:"Asake Nigerian singer"},nofb:1,
+  bio:"Known for blending Yoruba melodies with Afrobeats and amapiano influences, Asake has become one of Nigeria’s most visible music exports.",
+  facts:["Albums: Mr Money With the Vibes (2022), Work of Art (2023), Lungu Boy (2024)","Fourth studio album: M$NEY","Two 2027 Grammy nominations in Best African Music Performance"]},
+ {id:"burna-boy",name:"Burna Boy",real:"Damini Ogulu",tag:"Afro-fusion",img:{t:"Burna Boy",q:"Burna Boy"},nofb:1,
+  bio:"Burna Boy won Best Global Music Album at the 2021 Grammys for Twice as Tall and was the first African artiste with Grammy nominations six years running.",
+  facts:["Latest album: No Sign of Weakness (July 2025)","On Shakira’s 2026 FIFA World Cup song ‘Dai Dai’","Executive-produced Seyi Vibez’s SWAGUU","2027 Grammy nominee"]},
+ {id:"seyi-vibez",name:"Seyi Vibez",real:"Balogun Afolabi Oluwaloseyi",tag:"Street-pop · Fuji",img:{t:"Seyi Vibez",q:"Seyi Vibez"},nofb:1,
+  bio:"A street-pop favourite who blends Afrobeats with fuji, Seyi Vibez followed his Fuji Moto album with the 14-track SWAGUU in 2026.",
+  facts:["Albums: Fuji Moto (Nov 2025), SWAGUU (2026)","SWAGUU executive-produced by Burna Boy, with Quavo on the title track","Gifted his father a second house in November 2026"]},
+ {id:"tiwa-savage",name:"Tiwa Savage",real:"Tiwatope Savage",tag:"Afropop · R&B",img:{t:"Tiwa Savage",q:"Tiwa Savage"},nofb:1,
+  bio:"Signed to Universal Music Group in 2019 and often called the queen of Afrobeats, Tiwa Savage returned in 2025 with her fourth studio album.",
+  facts:["Albums: Once Upon a Time (2013), R.E.D (2015), Celia (2020), This One Is Personal (2025)","Launched the Tiwa Savage Music Foundation in 2026"]},
+ {id:"tems",name:"Tems",real:"Temilade Openiyi",tag:"Alté · R&B",img:{t:"Tems",q:"Tems"},nofb:1,
+  bio:"Tems won Best African Music Performance at the 67th Grammys for ‘Love Me Jeje’.",
+  facts:["Leads the Nigerian nominees at the 2027 Grammys with four nominations","Nominated in Best African Music Performance alongside Asake, Wizkid and Ayra Starr"]},
+ {id:"wizkid",name:"Wizkid",real:"Ayodeji Balogun",tag:"Afrobeats",img:{t:"Wizkid",q:"Wizkid"},nofb:1,
+  bio:"Wizkid won a Grammy in 2021 for his feature on Beyoncé’s ‘Brown Skin Girl’.",
+  facts:["Shared the REAL, Vol. 1 EP with Asake in January 2026","2027 Grammy nominee","Among the 2026 Headies nominees"]},
+ {id:"davido",name:"Davido",real:"David Adeleke",tag:"Afrobeats",img:{t:"Davido",q:"Davido"},nofb:1,
+  bio:"Davido earned a 2026 Grammy nomination for ‘With You’ with Omah Lay and is a 2027 nominee too.",
+  facts:["2027 Grammy nominee","Among the 2026 Headies nominees"]},
+ {id:"ayra-starr",name:"Ayra Starr",real:"Oyinkansola Sarah Aderibigbe",tag:"Afropop",img:{t:"Ayra Starr",q:"Ayra Starr"},nofb:1,
+  bio:"Ayra Starr is nominated for Best African Music Performance at the 2027 Grammys and is named on the Coachella 2027 lineup.",
+  facts:["2027 Grammy nominee","On the Coachella 2027 lineup","Among the 2026 Headies nominees"]}
+];
+var celById={};CELEBS.forEach(function(c){celById[c.id]=c;});
+
 /* ---------- helpers ---------- */
 function $(id){return document.getElementById(id);}
 var ICON={
@@ -645,23 +811,24 @@ function toast(m){var t=$("toast");t.textContent=m;t.classList.add("show");clear
 
 /* ---------- images (Wikipedia / Wikimedia Commons) ---------- */
 var IMG={};
-function imgFor(s){return IMG[s.id]||"";}
+function celPhoto(name){for(var i=0;i<CELEBS.length;i++){if(CELEBS[i].name===name)return IMG["cel-"+CELEBS[i].id]||"";}return "";}
+function imgFor(s){return IMG[s.id]||((s.auto&&s.who&&s.who.length)?celPhoto(s.who[0]):"");}
 function loadImages(){
-  var titles=[];
-  S.forEach(function(s){if(s.img.t&&titles.indexOf(s.img.t)<0)titles.push(s.img.t);});
+  var titles=[],ALL=S.concat(CELEBS.map(function(c){return {id:"cel-"+c.id,img:c.img,nofb:c.nofb};}));
+  ALL.forEach(function(s){if(s.img.t&&titles.indexOf(s.img.t)<0)titles.push(s.img.t);});
   var url="https://en.wikipedia.org/w/api.php?action=query&format=json&origin=*&redirects=1&prop=pageimages&piprop=thumbnail&pithumbsize=1000&titles="+encodeURIComponent(titles.join("|"));
   return fetch(url).then(function(r){return r.json();}).then(function(d){
     var q=d.query||{},alias={},redir={},got={};
     (q.normalized||[]).forEach(function(n){alias[n.from]=n.to;});
     (q.redirects||[]).forEach(function(n){redir[n.from]=n.to;});
     Object.keys(q.pages||{}).forEach(function(k){var p=q.pages[k];if(p.thumbnail)got[p.title]=p.thumbnail.source;});
-    S.forEach(function(s){
+    ALL.forEach(function(s){
       if(!s.img.t)return;
       var n=alias[s.img.t]||s.img.t;n=redir[n]||n;
       if(got[n])IMG[s.id]=got[n];
     });
   }).catch(function(){}).then(function(){
-    var missing=S.filter(function(s){return !IMG[s.id];});
+    var missing=ALL.filter(function(s){return !IMG[s.id]&&!s.nofb;});
     return Promise.all(missing.map(function(s){
       var u="https://commons.wikimedia.org/w/api.php?action=query&format=json&origin=*&generator=search&gsrnamespace=6&gsrlimit=3&gsrsearch="+encodeURIComponent(s.img.q+" filetype:bitmap")+"&prop=imageinfo&iiprop=url&iiurlwidth=1000";
       return fetch(u).then(function(r){return r.json();}).then(function(d){
@@ -678,8 +845,9 @@ function thumb(s,cls){
 }
 
 /* ---------- state ---------- */
-var state={cat:"All",q:"",view:"grid",shown:6,saved:[],liked:{}};
-try{state.saved=JSON.parse(store("9ja_saved")||"[]").filter(function(i){return byId[i];});}catch(e){state.saved=[];}
+var state={cat:"All",q:"",who:"",view:"grid",shown:6,saved:[],follow:[],liked:{}};
+try{state.saved=JSON.parse(store("9ja_saved")||"[]");}catch(e){state.saved=[];}
+try{state.follow=JSON.parse(store("9ja_follow")||"[]").filter(function(i){return celById[i];});}catch(e){state.follow=[];}
 
 /* ---------- nav + chips ---------- */
 var NAVS=["All"].concat(CATS);
@@ -687,12 +855,20 @@ function renderNav(){
   $("catNav").innerHTML='<div class="container">'+NAVS.map(function(c){
     return '<button class="cat-link'+(state.cat===c?" active":"")+'" data-cat="'+c+'" type="button">'+(c==="All"?"Home":c)+'</button>';
   }).join("")+'<button class="cat-link" data-adv="1" type="button">Advertise</button></div>';
-  $("chips").innerHTML=NAVS.map(function(c){
-    return '<button class="fchip'+(state.cat===c?" active":"")+'" data-cat="'+c+'" type="button">'+(c==="All"?"All stories":c)+'</button>';
+  $("chips").innerHTML=NAVS.concat(["Live","Following"]).map(function(c){
+    var label=c==="All"?"All stories":(c==="Following"?"Following ("+state.follow.length+")":(c==="Live"?"Live feed":c));
+    return '<button class="fchip'+(state.cat===c?" active":"")+'" data-cat="'+c+'" type="button">'+label+'</button>';
   }).join("");
+  renderCelChips();
 }
-function setCat(c,scroll){
-  state.cat=c;state.shown=6;renderNav();renderFeed();
+function renderCelChips(){
+  if(state.cat!=="Celebrities"){$("celChips").innerHTML="";return;}
+  $("celChips").innerHTML=['<button class="fchip'+(state.who===""?" cel-on":"")+'" data-who="" type="button">All celebrities</button>'].concat(CELEBS.map(function(c){
+    return '<button class="fchip'+(state.who===c.name?" cel-on":"")+'" data-who="'+c.name+'" type="button">'+c.name+'</button>';
+  })).join("");
+}
+function setCat(c,scroll,who){
+  state.cat=c;state.who=who||"";state.shown=6;renderNav();renderFeed();
   if(scroll)$("feed").scrollIntoView({behavior:"smooth",block:"start"});
 }
 document.addEventListener("click",function(e){
@@ -706,15 +882,18 @@ document.addEventListener("click",function(e){
 /* ---------- feed ---------- */
 function filtered(){
   var list=S.slice().sort(function(a,b){return b.time-a.time;});
-  if(state.cat==="Trending")list=list.filter(function(s){return s.trending;});
+  if(state.cat==="Live")list=list.filter(function(s){return s.auto;});
+  else if(state.cat==="Trending")list=list.filter(function(s){return s.trending;});
+  else if(state.cat==="Following"){var fn=CELEBS.filter(function(c){return state.follow.indexOf(c.id)>-1;}).map(function(c){return c.name;});list=list.filter(function(s){return s.who&&s.who.some(function(w){return fn.indexOf(w)>-1;});});}
   else if(state.cat!=="All")list=list.filter(function(s){return s.cat===state.cat;});
-  if(state.q){var q=state.q.toLowerCase();list=list.filter(function(s){return (s.title+" "+s.dek+" "+s.cat).toLowerCase().indexOf(q)>-1;});}
+  if(state.who)list=list.filter(function(s){return s.who&&s.who.indexOf(state.who)>-1;});
+  if(state.q){var q=state.q.toLowerCase();list=list.filter(function(s){return (s.title+" "+s.dek+" "+s.cat+" "+(s.who||[]).join(" ")).toLowerCase().indexOf(q)>-1;});}
   return list;
 }
 function cardHTML(s,i){
   var sv=state.saved.indexOf(s.id)>-1;
   return '<article class="card" data-open="'+s.id+'" tabindex="0" role="button" style="animation-delay:'+(i*50)+'ms" aria-label="Open story: '+s.title.replace(/"/g,"&quot;")+'">'+
-    thumb(s)+
+    thumb(s)+(isNew(s)?'<span class="new-badge">NEW</span>':'')+
     '<button class="icon-btn save'+(sv?" on":"")+'" data-save="'+s.id+'" type="button" aria-label="'+(sv?"Remove from saved":"Save story")+'">'+ICON.bm+'</button>'+
     '<div class="card-body"><span class="chip c-'+s.cat+'">'+s.cat+'</span><h3>'+s.title+'</h3><p class="dek">'+s.dek+'</p>'+
     '<div class="meta"><span>'+s.when+'</span><span>'+s.read+'</span></div></div></article>';
@@ -723,7 +902,7 @@ function renderFeed(){
   var list=filtered(),vis=list.slice(0,state.shown);
   var cards=$("cards");
   cards.className="cards "+state.view;
-  cards.innerHTML=vis.length?vis.map(cardHTML).join(""):'<div class="empty"><b>No stories found.</b><br>Try a different search or section.</div>';
+  cards.innerHTML=vis.length?vis.map(cardHTML).join(""):'<div class="empty"><b>'+(state.cat==="Following"&&!state.follow.length?"You aren’t following anyone yet.":"No stories found.")+'</b><br>'+(state.cat==="Following"&&!state.follow.length?"Tap Follow on any celebrity in the spotlight to see their stories here.":"Try a different search or section.")+'</div>';
   var st=$("status");
   st.innerHTML="";
   var sp=document.createElement("span");
@@ -747,7 +926,8 @@ document.addEventListener("click",function(e){
 });
 document.addEventListener("keydown",function(e){
   if((e.key==="Enter"||e.key===" ")&&e.target.matches&&e.target.matches(".card[data-open], .slide[data-open]")){e.preventDefault();openReader(e.target.getAttribute("data-open"));}
-  if(e.key==="Escape"){closeReader();closeDrawer();}
+  if((e.key==="Enter"||e.key===" ")&&e.target.matches&&e.target.matches(".cel-photo[data-prof]")){e.preventDefault();openProfile(e.target.getAttribute("data-prof"));}
+  if(e.key==="Escape"){closeReader();closeDrawer();closeProfile();}
   if(e.key==="/"&&!/INPUT|TEXTAREA/.test(document.activeElement.tagName)){e.preventDefault();$("searchInput").focus();}
 });
 
@@ -823,7 +1003,7 @@ function toggleSave(id){
   persist();renderFeed();renderDrawer();syncReaderSave();
 }
 function renderDrawer(){
-  $("drawerList").innerHTML=state.saved.length?state.saved.map(function(id){var s=byId[id];
+  var sv=state.saved.filter(function(id){return byId[id];});$("drawerList").innerHTML=sv.length?sv.map(function(id){var s=byId[id];
     return '<div class="drawer-item">'+miniHTML(s)+'<button class="icon-btn rm" data-rm="'+id+'" type="button" aria-label="Remove from saved">'+ICON.x+'</button></div>';}).join(""):'<div class="empty">Nothing saved yet. Tap the bookmark on any story.</div>';
 }
 function openDrawer(){renderDrawer();$("drawer").classList.add("open");$("scrim").classList.add("open");$("drawer").setAttribute("aria-hidden","false");}
@@ -836,22 +1016,22 @@ $("scrim").addEventListener("click",closeDrawer);
 var cur=null,lastFocus=null;
 function openReader(id){
   var s=byId[id];if(!s)return;
-  closeDrawer();cur=s;
+  closeDrawer();closeProfile();cur=s;
   var hero=$("rdHero");hero.className="rd-hero c-"+s.cat;
   var old=hero.querySelector("img");if(old)old.remove();
   var u=imgFor(s);
   if(u){var im=document.createElement("img");im.src=u;im.alt="";im.onerror=function(){im.remove();};hero.insertBefore(im,hero.firstChild);}
   $("rdChip").className="chip c-"+s.cat;$("rdChip").textContent=s.cat;
-  $("rdTitle").textContent=s.title;
-  $("rdMeta").textContent="9jatunes Desk · "+s.when+" · "+s.read;
+  $("rdTitle").innerHTML=s.title;
+  $("rdMeta").innerHTML=(s.auto?"Via "+s.src.n:"9jatunes Desk")+" · "+s.when+(s.auto?"":" · "+s.read);
   $("rdParas").innerHTML=s.body.map(function(p){return "<p>"+p+"</p>";}).join("");
-  $("rdCredit").textContent=u?"Photo: Wikipedia / Wikimedia Commons (licence on the file page). Illustrative image.":"";
-  var src=$("rdSrc");src.href=s.src.u;src.innerHTML="Read the original report at "+s.src.n+" "+ICON.ext;
+  $("rdCredit").textContent=!u?"":(s.auto&&s.imgUrl?"Thumbnail supplied by the publisher’s feed.":"Photo: Wikipedia / Wikimedia Commons (licence on the file page). Illustrative image.");
+  var src=$("rdSrc");src.href=s.src.u;src.innerHTML=(s.auto?"Read the full story at ":"Read the original report at ")+s.src.n+" "+ICON.ext;
   $("rdLike").classList.toggle("on",!!state.liked[id]);
   syncReaderSave();
-  var share=s.title+" — "+s.src.u;
+  var share=plain(s.title)+" — "+s.src.u;
   $("rdWa").href="https://wa.me/?text="+encodeURIComponent(share);
-  $("rdX").href="https://twitter.com/intent/tweet?text="+encodeURIComponent(s.title)+"&url="+encodeURIComponent(s.src.u);
+  $("rdX").href="https://twitter.com/intent/tweet?text="+encodeURIComponent(plain(s.title))+"&url="+encodeURIComponent(s.src.u);
   var rel=S.filter(function(x){return x.id!==id&&x.cat===s.cat;}).slice(0,2);
   if(rel.length<2)rel=rel.concat(S.filter(function(x){return x.id!==id&&rel.indexOf(x)<0;}).slice(0,2-rel.length));
   $("rdNext").innerHTML=rel.map(miniHTML).join("");
@@ -874,7 +1054,7 @@ $("reader").addEventListener("scroll",function(){var r=$("reader");$("rdBar").st
 $("rdLike").addEventListener("click",function(){state.liked[cur.id]=!state.liked[cur.id];this.classList.toggle("on",!!state.liked[cur.id]);});
 $("rdSave").addEventListener("click",function(){toggleSave(cur.id);});
 $("rdCopy").addEventListener("click",function(){
-  var txt=cur.title+" — "+cur.src.u;
+  var txt=plain(cur.title)+" — "+cur.src.u;
   if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(txt).then(function(){toast("Link copied");},function(){toast("Couldn’t copy. Select the link manually.");});}
   else{toast("Copy isn’t available in this browser");}
 });
@@ -915,10 +1095,137 @@ document.addEventListener("pointerdown",function(e){
 window.addEventListener("scroll",function(){$("toTop").classList.toggle("show",window.scrollY>700);},{passive:true});
 $("toTop").addEventListener("click",function(){window.scrollTo({top:0,behavior:"smooth"});});
 
+
+/* ---------- celebrity spotlight + profiles ---------- */
+function celStories(name){return S.filter(function(s){return s.who&&s.who.indexOf(name)>-1;});}
+function avatar(c){
+  var u=IMG["cel-"+c.id];
+  return '<span>'+c.name.split(" ").map(function(w){return w[0];}).join("").slice(0,2).toUpperCase()+'</span>'+(u?'<img src="'+u+'" alt="'+c.name+'" loading="lazy" onerror="this.remove()">':'');
+}
+function renderSpotlight(){
+  $("spTrack").innerHTML=CELEBS.map(function(c){
+    var n=celStories(c.name).length,f=state.follow.indexOf(c.id)>-1;
+    return '<article class="cel"><div class="cel-photo" data-prof="'+c.id+'" role="button" tabindex="0" aria-label="Open profile: '+c.name+'">'+avatar(c)+'<div class="cel-count">'+n+(n===1?" story":" stories")+'</div></div>'+
+      '<div class="cel-body"><h3>'+c.name+'</h3><small>'+c.tag+'</small><div class="cel-actions">'+
+      '<button class="btn btn-ghost btn-sm" data-prof="'+c.id+'" type="button">Profile</button>'+
+      '<button class="btn btn-ghost btn-sm follow'+(f?" on":"")+'" data-follow="'+c.id+'" aria-pressed="'+f+'" type="button">'+(f?"Following":"Follow")+'</button></div></div></article>';
+  }).join("");
+}
+$("spPrev").addEventListener("click",function(){$("spTrack").scrollBy({left:-440,behavior:"smooth"});});
+$("spNext").addEventListener("click",function(){$("spTrack").scrollBy({left:440,behavior:"smooth"});});
+
+var curP=null;
+function syncFollowBtn(){
+  if(!curP)return;var f=state.follow.indexOf(curP.id)>-1;
+  $("pfFollow").classList.toggle("on",f);$("pfFollow").textContent=f?"Following":"Follow";
+}
+function toggleFollow(id){
+  var c=celById[id];if(!c)return;var i=state.follow.indexOf(id);
+  if(i>-1){state.follow.splice(i,1);toast("Unfollowed "+c.name);}
+  else{state.follow.push(id);toast("Following "+c.name+". Their stories appear under Following.");}
+  store("9ja_follow",JSON.stringify(state.follow));
+  renderSpotlight();renderNav();if(state.cat==="Following")renderFeed();syncFollowBtn();
+}
+function openProfile(id){
+  var c=celById[id];if(!c)return;
+  curP=c;closeDrawer();closeReader();
+  $("pfPhoto").innerHTML=avatar(c);
+  $("pfName").textContent=c.name;
+  $("pfReal").textContent=(c.real?"Real name: "+c.real+" · ":"")+c.tag;
+  $("pfBio").textContent=c.bio;
+  $("pfFacts").innerHTML=c.facts.map(function(f){return "<li>"+f+"</li>";}).join("");
+  var ss=celStories(c.name).sort(function(a,b){return b.time-a.time;});
+  $("pfStoriesTitle").textContent="Latest on "+c.name;
+  $("pfStories").innerHTML=ss.length?ss.map(miniHTML).join(""):'<div class="empty">No stories yet.</div>';
+  $("pfWiki").href="https://en.wikipedia.org/w/index.php?search="+encodeURIComponent(c.name+" Nigerian musician");
+  syncFollowBtn();
+  lastFocus=document.activeElement;
+  $("pfOverlay").classList.add("open");$("pfOverlay").setAttribute("aria-hidden","false");document.body.classList.add("lock");
+  $("pf").scrollTop=0;$("pfClose").focus();
+}
+function closeProfile(){
+  if(!$("pfOverlay").classList.contains("open"))return;
+  $("pfOverlay").classList.remove("open");$("pfOverlay").setAttribute("aria-hidden","true");
+  if(!$("overlay").classList.contains("open"))document.body.classList.remove("lock");
+}
+$("pfClose").addEventListener("click",closeProfile);
+$("pfOverlay").addEventListener("click",function(e){if(e.target===$("pfOverlay"))closeProfile();});
+$("pfFollow").addEventListener("click",function(){if(curP)toggleFollow(curP.id);});
+$("pfAll").addEventListener("click",function(){var n=curP.name;closeProfile();setCat("Celebrities",true,n);});
+document.addEventListener("click",function(e){
+  var f=e.target.closest("[data-follow]");if(f){toggleFollow(f.getAttribute("data-follow"));return;}
+  var p=e.target.closest("[data-prof]");if(p){openProfile(p.getAttribute("data-prof"));return;}
+  var w=e.target.closest("[data-who]");if(w){state.who=w.getAttribute("data-who");state.shown=6;renderCelChips();renderFeed();}
+});
+
+
+/* ---------- live stories (stories.json, updated by GitHub Actions) ---------- */
+var STORIES_OVERRIDE="";   // optional: full URL to stories.json if you host it elsewhere
+function esc(t){return String(t==null?"":t).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;");}
+function plain(t){return String(t).replace(/&#39;/g,"'").replace(/&quot;/g,'"').replace(/&gt;/g,">").replace(/&lt;/g,"<").replace(/&amp;/g,"&");}
+function normT(t){return plain(t).toLowerCase().replace(/[^a-z0-9]+/g," ").trim();}
+function relWhen(ms){var m=(Date.now()-ms)/60000;if(m<60)return Math.max(1,Math.round(m))+" min ago";var h=m/60;if(h<24)return Math.round(h)+"h ago";return new Date(ms).toLocaleDateString("en-GB",{day:"numeric",month:"short",year:"numeric"});}
+function isNew(s){return !!s.auto&&Date.now()-s.time<864e5;}
+function storyUrls(){
+  if(STORIES_OVERRIDE)return [STORIES_OVERRIDE];
+  var urls=["stories.json"],m=location.hostname.match(/^([^.]+)\.github\.io$/);
+  if(m){var seg=location.pathname.split("/").filter(Boolean)[0];if(seg&&seg.indexOf(".")<0)urls.push("https://raw.githubusercontent.com/"+m[1]+"/"+seg+"/main/stories.json");}
+  return urls;
+}
+function fetchJson(u){
+  return fetch(u+(u.indexOf("?")>-1?"&":"?")+"t="+Date.now(),{cache:"no-store"}).then(function(r){if(!r.ok)throw 0;return r.json();}).catch(function(){return null;});
+}
+function mergeStories(d){
+  var before={};S.forEach(function(s){if(s.auto)before[s.id]=1;});
+  var known={};S.forEach(function(s){if(!s.auto){known[s.src.u]=1;known[normT(s.title)]=1;}});
+  S=S.filter(function(s){return !s.auto;});
+  (d.stories||[]).forEach(function(a){
+    if(!a||!/^a-[a-f0-9]{10}$/.test(a.id||"")||!a.title||!a.src||!/^https?:\/\/[^\s"'<>]+$/.test(a.src.u||"")||!a.src.n)return;
+    var t=new Date(a.ts).getTime();if(!isFinite(t))return;
+    if(known[a.src.u]||known[normT(a.title)])return;
+    var cat=CATS.indexOf(a.cat)>-1?a.cat:"Gist";
+    var who=(a.who||[]).filter(function(w){return CELEBS.some(function(c){return c.name===w;});});
+    var dek=esc(a.dek||"");
+    var s={id:a.id,auto:true,cat:cat,who:who,ts:a.ts,time:t,when:relWhen(t),read:"via "+esc(a.src.n),
+      title:esc(a.title),dek:dek||"Read the full report at "+esc(a.src.n)+".",img:{t:null,q:""},nofb:1,
+      src:{n:esc(a.src.n),u:a.src.u},
+      body:[dek||esc(a.title),"This is a headline summary from "+esc(a.src.n)+". The full report, with all the details, is on their site."],
+      imgUrl:/^https:\/\/[^\s"'<>]+$/.test(a.img||"")?a.img:""};
+    if(s.imgUrl)IMG[s.id]=s.imgUrl;
+    S.push(s);
+  });
+  Object.keys(byId).forEach(function(k){delete byId[k];});
+  S.forEach(function(s){byId[s.id]=s;});
+  state.saved=state.saved.filter(function(i){return byId[i];});persist();
+  var autos=S.filter(function(s){return s.auto;}),added=autos.filter(function(s){return !before[s.id];}).length;
+  var pill=$("livePill");
+  if(autos.length&&d.updated){pill.hidden=false;pill.innerHTML='<span class="live-dot"></span>Live feed · '+autos.length+' stories · updated '+relWhen(new Date(d.updated).getTime());}
+  var latest=autos.slice().sort(function(a,b){return b.time-a.time;}).slice(0,6);
+  if(latest.length>=3){TICKER=latest.map(function(s){return [s.id,s.title];}).concat(TICKER.filter(function(t){return byId[t[0]]&&!byId[t[0]].auto;}).slice(0,4));renderTicker();}
+  renderAll();renderDrawer();
+  return added;
+}
+function loadStories(){
+  return Promise.all(storyUrls().map(fetchJson)).then(function(res){
+    var best=null;res.forEach(function(d){if(d&&d.stories&&(!best||(d.updated||"")>(best.updated||"")))best=d;});
+    if(!best||!best.stories.length)return best?0:-1;
+    return mergeStories(best);
+  });
+}
+$("refreshBtn").addEventListener("click",function(){
+  var b=this;b.classList.add("spin");
+  loadStories().then(function(n){
+    b.classList.remove("spin");
+    toast(n<0?"Live feed isn’t available right now":(n>0?n+(n===1?" new story added":" new stories added"):"You’re up to date"));
+  });
+});
+setInterval(function(){loadStories();},10*60*1000);
+
 /* ---------- boot ---------- */
-function renderAll(){renderNav();renderSlider();renderSide();renderFeed();}
+function renderAll(){renderNav();renderSlider();renderSide();renderSpotlight();renderFeed();}
 renderAll();renderTicker();setTick();setPauseIcon();renderBox();renderPoll();renderFormats();persist();auto();
 loadImages();
+loadStories();
 })();
 </script>
 </body></html>
