@@ -1,0 +1,9 @@
+{
+  "name": "9jatunes-story-feed",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Collects Nigerian entertainment headlines from public RSS feeds into stories.json for the 9jatunes site.",
+  "scripts": { "update": "node scripts/fetch-stories.mjs" },
+  "dependencies": { "fast-xml-parser": "^4.5.0" }
+}

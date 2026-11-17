@@ -1,0 +1,21 @@
+{
+  "maxAgeDays": 21,
+  "maxStories": 80,
+  "perSourceLimit": 12,
+  "useSourceImages": true,
+  "sports": "super eagles|super falcons|d.?tigers|d.?tigress|\\bnff\\b|npfl|afcon|osimhen|lookman|chelle|iwobi|ndidi|flamingos|golden eaglets|nigeria.{0,25}(football|world cup|qualifier|u-?\\d\\d)|nigerian footballer",
+  "sources": [
+    { "name": "BellaNaija", "url": "https://www.bellanaija.com/feed/", "requireEntertainment": true },
+    { "name": "Vanguard", "url": "https://www.vanguardngr.com/category/entertainment/feed/" },
+    { "name": "Premium Times", "url": "https://www.premiumtimesng.com/entertainment/feed" },
+    { "name": "Punch", "url": "https://punchng.com/topics/entertainment/feed/" },
+    { "name": "The Guardian Nigeria", "url": "https://guardian.ng/life/feed/", "requireEntertainment": true },
+    { "name": "TheCable Lifestyle", "url": "https://lifestyle.thecable.ng/feed/", "requireEntertainment": true },
+    { "name": "Blueprint", "url": "https://blueprint.ng/category/entertainment/feed/" },
+    { "name": "Leadership", "url": "https://leadership.ng/category/entertainment/feed/" },
+    { "name": "NotJustOk", "url": "https://notjustok.com/feed/" },
+    { "name": "Pulse Nigeria", "url": "https://www.pulse.ng/rss", "requireEntertainment": true },
+    { "name": "Vanguard Sports", "url": "https://www.vanguardngr.com/category/sports/feed/", "defaultCat": "Sport", "requireSports": true },
+    { "name": "Punch Sports", "url": "https://punchng.com/topics/sports/feed/", "defaultCat": "Sport", "requireSports": true }
+  ]
+}
